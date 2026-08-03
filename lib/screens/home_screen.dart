@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vroom/model/product.dart';
+import 'package:vroom/screens/product_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,13 +18,12 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _tabs = [_HomeTab(), _OrdersTab(), _ProfileTab()];
   final List<String> _titles = ['Home', 'Orders', 'Profile'];
 
-  void _onTabClicked(int index){
+  void _onTabClicked(int index) {
     setState(() {
       _selectedIndex = index;
       _tabTitle = _titles[index];
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag_outlined),
-            activeIcon:Icon(Icons.shopping_bag),
+            activeIcon: Icon(Icons.shopping_bag),
             label: 'Orders',
           ),
           BottomNavigationBarItem(
@@ -57,7 +58,13 @@ class _HomeScreenState extends State<HomeScreen> {
 class _HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Home'));
+    return ListView.builder(
+      itemCount: dummyProducts.length,
+      itemBuilder: (context, index) {
+        final product = dummyProducts[index];
+        return ProductCard(product: product);
+      },
+    );
   }
 }
 
